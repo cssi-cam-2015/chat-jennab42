@@ -33,14 +33,11 @@ def ReadRemarks(user_id):
   # Query the datastore for remarks. Only get remarks posted since the last time
   # this user checked (Remark.timestamp >= start_time). Order them by when they
   # were posted. Return the results as a list of tuples with (user, text, color).
-  remarks = []
-  query = Remark.query(Remark.timestamp >= start_time).order(Remark.timestamp)
-  for remark in query.fetch():
-    # TODO(cssi-cam-2015) Randomize the color so that each remark is different.
-    remarks.append((remark.user, remark.text, "#%03x" % random.randint(0, 0xFFF) ))
-
-  return remarks
-
+  return [
+      (remark.user, remark.text, "#%03x" % random.randint(0, 0xFFF))
+      for remark
+      in Remark.query(
+          Remark.timestamp >= start_time).order(Remark.timestamp).fetch()]
 
 def PostRemark(user, text):
   """Puts a new remark in the datastore."""
