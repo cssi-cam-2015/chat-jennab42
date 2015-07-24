@@ -1,1 +1,4 @@
-# chat-jennab42
+google-edge-chat
+================
+
+Example chat app for Google Edge students.
